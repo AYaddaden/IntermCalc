@@ -19,6 +19,7 @@ symbol [a-zA-Z]+
 "produit" return PRODUCT;
 "variance" return VARIANCE;
 "ecart-type" return ECARTTYPE ;
+"max" return MAX;
 , return COMMA;
 "+" return PLUS;
 "-" return MINUS;

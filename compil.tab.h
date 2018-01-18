@@ -59,11 +59,12 @@ extern int yydebug;
     PRODUCT = 269,
     VARIANCE = 270,
     ECARTTYPE = 271,
-    COMMA = 272,
-    END = 273,
-    MODUL = 274,
-    NEG = 275,
-    POS = 276
+    MAX = 272,
+    COMMA = 273,
+    END = 274,
+    MODUL = 275,
+    NEG = 276,
+    POS = 277
   };
 #endif
 
@@ -74,13 +75,13 @@ union YYSTYPE
 {
 #line 52 "compil.y" /* yacc.c:1909  */
 
-	char value[10]; //for operands
+	char value[20]; //for operands
 	char symbol; //for operators
 	char* string; //for functions
 	int num;
 	struct linked_list* list; //for function's arguments
 
-#line 84 "compil.tab.h" /* yacc.c:1909  */
+#line 85 "compil.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

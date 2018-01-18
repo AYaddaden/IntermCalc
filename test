@@ -1,0 +1,38 @@
+   Op	|Src1	|Src2	|Dest 
+ 0: *	| r	| r	| tmp2
+ 1: *	| q	| q	| tmp3
+ 2: +	| tmp2	| tmp3	| tmp4
+ 3: /	| tmp4	| 2	| tmp5
+ 4: +	| r	| q	| tmp6
+ 5: /	| tmp6	| 2	| tmp7
+ 6: *	| tmp7	| tmp7	| tmp8
+ 7: -	| tmp5	| tmp8	| tmp9
+ 8: MOV	| 1	| 	| tmp10
+ 9: MOV	| tmp10	| 	| tmp11
+10: /	| tmp9	| tmp11	| tmp12
+11: +	| tmp11	| tmp12	| tmp13
+12: /	| tmp13	| 2	| tmp14
+13: MOV	| tmp11	| 	| tmp15
+14: MOV	| tmp14	| 	| tmp11
+15: SUB	| tmp15	| tmp11	| 
+16: JNZ	| 	| 	| 10
+17: *	| tmp11	| tmp11	| tmp16
+18: *	| d	| d	| tmp17
+19: +	| tmp16	| tmp17	| tmp18
+20: *	| z	| z	| tmp19
+21: +	| tmp18	| tmp19	| tmp20
+22: *	| a	| a	| tmp21
+23: +	| tmp20	| tmp21	| tmp22
+24: /	| tmp22	| 4	| tmp23
+25: +	| tmp11	| d	| tmp24
+26: +	| tmp24	| z	| tmp25
+27: +	| tmp25	| a	| tmp26
+28: /	| tmp26	| 4	| tmp27
+29: *	| tmp27	| tmp27	| tmp28
+30: -	| tmp23	| tmp28	| tmp29
+31: +	| tmp29	| 4	| tmp30
+32: +	| tmp30	| 5.22	| tmp31
+33: *	| a	| b	| tmp32
+34: *	| tmp32	| tmp31	| tmp33
+35: +	| tmp33	| 4	| tmp34
+----------------------------------

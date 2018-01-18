@@ -43,14 +43,14 @@ char* produit(struct linked_list* list);
 char* variance(struct linked_list* list);
 char* racine(char* a);
 char* ecartType(struct linked_list* list);
-
+char* max(struct linked_list* list);
 int yyerror(char *err);
 int yylex();
 %}
 
 
 %union{
-	char value[10]; //for operands
+	char value[20]; //for operands
 	char symbol; //for operators
 	char* string; //for functions
 	int num;
@@ -61,7 +61,7 @@ int yylex();
 %token <value>  NUMBER
 %token <symbol> PLUS MINUS TIMES DIVIDE POWER
 %token <symbol> LEFT RIGHT
-%token <string> EXIT MOYENNE SOMME PRODUCT VARIANCE ECARTTYPE
+%token <string> EXIT MOYENNE SOMME PRODUCT VARIANCE ECARTTYPE MAX
 %token <symbol> COMMA 
 %token <symbol> END
 
@@ -222,7 +222,9 @@ Function: Name LEFT List RIGHT{
 					case 5: //si c'est l'ecart type
 						strcpy($$,ecartType(list));
 						break;
-					
+					case 6:
+						strcpy($$,max(list));
+						break;
 				}
 			} 
 			
@@ -237,6 +239,7 @@ Name: MOYENNE { $$ = 1;}
 	| PRODUCT { $$ = 3;}
 	| VARIANCE { $$ = 4;}
 	| ECARTTYPE { $$ = 5;}
+	| MAX {$$ = 6;}
 ;
 
 List: List COMMA Expression {
@@ -558,6 +561,49 @@ char* ecartType(struct linked_list* list)
 	strcpy(a,variance(list));
 	return racine(a);
 	
+}
+
+char* max(struct linked_list* list)
+{
+	struct node* node = list->start;
+	
+	if(node){
+		if(node->next)
+		{
+			sprintf(buf,"%s",node->data);
+			sprintf(buf1,"%s",node->next->data);
+			sprintf(buf2,"%s%d","tmp",cpt_tmp);
+			GenererQuadruplet("CMP",buf,buf1,"");
+			sprintf(buf3,"%d",quadCourant+3);
+			GenererQuadruplet("JL","","",buf3);
+			GenererQuadruplet("MOV",buf,"",buf2);
+			sprintf(buf3,"%d",quadCourant+2);
+			GenererQuadruplet("JMP","","",buf3);
+			GenererQuadruplet("MOV",buf1,"",buf2);
+			sprintf(buf,"%s%d","tmp",cpt_tmp);
+			cpt_tmp++;
+			
+			node = node->next->next;
+
+			while(node != NULL)
+			{
+				sprintf(buf1,"%s",node->data);
+				GenererQuadruplet("CMP",buf,buf1,"");
+				sprintf(buf3,"%d",quadCourant+2);
+				GenererQuadruplet("JL","","",buf3);
+				sprintf(buf3,"%d",quadCourant+2);
+				GenererQuadruplet("JMP","","",buf3);
+				GenererQuadruplet("MOV",buf1,"",buf);
+				
+				node = node->next;	
+				
+			}
+				
+		}
+		
+	
+	}
+	return buf;
 }
 
 void GenererQuadruplet(char CodeOp[50],char source1[50],char source2[50],char destination[50]){
