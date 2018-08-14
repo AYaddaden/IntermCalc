@@ -2,7 +2,7 @@
 
 Generating intermediate form for a calculator
 
-Program written on Ubuntu 17.10 LTS using flex and bison
+Program written on Ubuntu 17.10 using flex and bison
 
 To compile:
 
